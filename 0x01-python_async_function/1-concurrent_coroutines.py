@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
+"""Tasks: 4. Tasks"""
 
 import random
 import asyncio
+wait_random = __import__('0-basic_async_syntax').wait_random
 
 
 async def wait_n(n: int, max_delay: int) -> float:
@@ -12,11 +14,3 @@ async def wait_n(n: int, max_delay: int) -> float:
     for i in range(n):
         delays.append(asyncio.create_task(wait_random(max_delay)))
     return [await delay for delay in asyncio.as_completed(delays)]
-
-async def wait_random(max_delay: int = 10) -> float:
-    """wait_random: takes in an integer argument (max_delay, with a default value
-    of 10) named wait_random that waits for a random delay between 0 and max_delay
-    (included and float value) seconds and eventually returns it."""
-    delay = random.uniform(0, max_delay)
-    await asyncio.sleep(delay)
-    return delay

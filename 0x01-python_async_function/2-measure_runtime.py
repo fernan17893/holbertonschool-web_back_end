@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""measure_time: takes integers n and max_delay as arguments."""
 
 import time
 import asyncio
