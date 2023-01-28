@@ -5,35 +5,41 @@ BaseCaching = __import__('base_caching').BaseCaching
 
 
 class LRUCache(BaseCaching):
-    """ Inherits from BaseCaching and is a caching system.
-        Overwrite functions 'put' and 'get' for implement LRU caching system.
-    """
+    """ LRU Cache System """
+    cache_copy = {}
+    insert = 0
+    LRU = 0
 
-    def __init__(self):
-        """ Initiliaze.
-        """
+    def __init__(self) -> None:
+        """ Call super and init super """
         super().__init__()
-        self.cache = []
 
     def put(self, key, item):
-        """ Assign to the dictionary self.cache_data the item
-            value for the key.
-        """
-        if key and item is not None:
-            if key in self.cache_data:
-                self.cache.remove(key)
-            self.cache_data[key] = item
-            self.cache.append(key)
-        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-            keyD = self.cache.pop(0)
-            self.cache_data.pop(keyD)
-            print("DISCARD: {}".format(keyD))
+        """ Must assign to the dictionary the item value for the key"""
+        if key and item:
+            if key in list(self.cache_data.keys()):
+                self.cache_data.update({key: item})
+                self.LRU = self.cache_copy.get(key)[1] + 1
+                self.cache_copy.update({key: [item, self.insert]})
+                self.insert += 1
+            else:
+                if len(self.cache_data.keys()) == self.MAX_ITEMS:
+                    for k, v in self.cache_copy.items():
+                        if v[1] == self.LRU:
+                            print("DISCARD: {}".format(k))
+                            del self.cache_data[k]
+                            del self.cache_copy[k]
+                            self.LRU += 1
+                            break
+                self.cache_copy[key] = [item, self.insert]
+                self.cache_data[key] = item
+                self.insert += 1
 
     def get(self, key):
-        """ Return:
-                The value in self.cache_data linked to key.
-        """
-        if key is not None and key in self.cache_data:
-            self.cache.remove(key)
-            self.cache.append(key)
-        return self.cache_data.get(key)
+        """ Must return the value in self.cache_data linked to key """
+        if key:
+            try:
+                return self.cache_data.get(key)
+            except KeyError:
+                return None
+        return None
