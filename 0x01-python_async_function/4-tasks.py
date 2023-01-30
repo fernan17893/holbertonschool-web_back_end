@@ -2,6 +2,7 @@
 """task_wait_n: takes in 2 int arguments"""
 
 import asyncio
+from typing import List
 wait_random = __import__('0-basic_async_syntax').wait_random
 
 
