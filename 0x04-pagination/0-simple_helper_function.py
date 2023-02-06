@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""task 0"""
 
 def index_range(page, page_size):
     """Return a tuple of size two containing a start index and an end index

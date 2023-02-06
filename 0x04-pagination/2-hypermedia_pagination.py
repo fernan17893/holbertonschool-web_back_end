@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Task 2"""
 
 import csv
 from typing import List
@@ -75,10 +76,3 @@ class Server:
         return {"page_size": page_size, "page": page, "data": data,
                 "next_page": next_page, "prev_page": prev_page,
                 "total_pages": total_pages}
-
-if __name__ == "__main__":
-
-
-    server = Server()
-    print(server.get_page(1, 10))
-    print(server.get_hyper(1, 10))
