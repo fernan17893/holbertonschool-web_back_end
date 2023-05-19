@@ -4,18 +4,13 @@
 
 import asyncio
 import random
+from typing import List
+wait_random = __import__('0-basic_async_syntax').wait_random
 
 
-async def wait_random(max_delay: int = 10) -> float:
-    """Asynchronus coroutine waits for delay"""
-    delay = random.uniform(0, max_delay)
-    await asyncio.sleep(delay)
-    return delay
-
-
-async def wait_n(n: int = 0, max_delay: int = 10) -> list:
+async def wait_n(n: int = 0, max_delay: int = 10) -> List[float]:
     """Async routine that spawns wait_random n times"""
-    list_delays = []
+    list_delays: List[float] = []
     for i in range(n):
         delay = await wait_random(max_delay)
         list_delays.append(delay)
