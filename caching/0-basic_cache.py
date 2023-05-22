@@ -5,9 +5,21 @@ BaseCaching = __import__('base_caching').BaseCaching
 
 
 class BasicCache(BaseCaching):
-    """BasicCache class
-    has put and get function
-    and cachinggg"""
+    """A simple caching system that inherits from BaseCaching.
+
+  This caching system does not have any limits.
+
+  Attributes:
+    cache_data: A dictionary that stores the cached data.
+
+  Methods:
+    put(key, item):
+      Assigns the value `item` to the key `key` in the dictionary `cache_data`.
+
+    get(key):
+      Returns the value in the dictionary `cache_data` linked to the key `key`.
+      If the key `key` is not in the dictionary, then `get()` returns `None`.
+  """
 
     def put(self, key, item):
         """put"""
