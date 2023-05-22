@@ -26,9 +26,8 @@ class BasicCache(BaseCaching):
             value for the key."""
         if key is None or item is None:
             return
-        
+
         self.cache_data[key] = item
-        
 
     def get(self, key):
         """Returns the value in the dictionary `cache_data`
