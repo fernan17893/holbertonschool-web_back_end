@@ -8,21 +8,25 @@ class FIFOCache(BaseCaching):
     """FIFO Cache Class"""
     def __init__(self):
         super().__init__()
-        self.cache_data = []
+        self.keys = []
 
-    def put (self, key, item):
-        """Assigns the value `item` to the key `key` in the dictionary `cache_data`.
-      If the key `key` is already in the cache, then the value is overwritten.
-      If the cache is full, then the first item in the queue"""
+    def put(self, key, item):
+        """Assigns the value `item` to the key `key` in the
+        dictionary `cache_data`. If the key `key` is already
+        in the cache, then the value is overwritten. If the
+        cache is full, then the first item in the queue"""
         if key is None or item is None:
             return
-        
-        self.cache_data.append((key, item))
 
-        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-            self.cache_data.pop(0)
-            print("DISCARD: {}".format(key))
+        self.cache_data[key] = item
 
+        if key not in self.keys:
+            self.keys.append(key)
+
+        if len(self.keys) >= BaseCaching.MAX_ITEMS:
+            first = self.keys.pop(0)
+            del self.cache_data[first]
+            print("DISCARD:", first)
 
     def get(self, key):
         """Returns the value in the dictionary `cache_data`
