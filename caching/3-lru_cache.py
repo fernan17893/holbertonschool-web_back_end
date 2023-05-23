@@ -11,7 +11,7 @@ class LRUCache(BaseCaching):
         self.keys = []
 
     def put(self, key, item):
-        """"""
+        """Returns the value least recently used"""
         if key is None or item is None:
             return
 
