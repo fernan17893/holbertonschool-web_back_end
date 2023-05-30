@@ -27,7 +27,8 @@ class RedactingFormatter(logging.Formatter):
         return filter_datum(self.fields, self.REDACTION,
                             super(RedactingFormatter, self).format(record),
                             self.SEPARATOR)
-    
+
+
 def get_logger() -> logging.Logger:
     """returns a logging.Logger object"""
     logger = logging.getLogger("user_data")
@@ -49,6 +50,7 @@ def filter_datum(fields: List[str],
         message = re.sub(f'{f}=.*?{separator}',
                          f'{f}={redaction}{separator}', message)
     return message
+
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
     """returns a connector to the database"""
