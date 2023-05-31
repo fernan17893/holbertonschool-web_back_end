@@ -60,3 +60,20 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
         host=os.environ.get('PERSONAL_DATA_DB_HOST', 'localhost'),
         database=os.environ.get('PERSONAL_DATA_DB_NAME'))
     return connector
+
+
+def main() -> None:
+    """main function"""
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users;")
+    logger = get_logger()
+    for row in cursor:
+        str_row = ''.join(f'{f}={str(r)}; ' for r, f in zip(row, PII_FIELDS))
+        logger.info(str_row)
+    cursor.close()
+    db.close()
+
+
+if __name__ == '__main__':
+    main()
