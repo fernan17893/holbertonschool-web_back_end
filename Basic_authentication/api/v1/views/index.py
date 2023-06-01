@@ -32,4 +32,4 @@ def unauthorized() -> str:
     Return:
       - the status of the API
     """
-    abort(401, description="Unauthorized")
+    return abort(401)
