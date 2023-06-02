@@ -19,7 +19,9 @@ class Auth:
         return False
     
     def authorization_header(sefl, request=None) -> str:
+        """Authorization header method"""
         return None
     
     def current_user(self, request=None) -> TypeVar('User'):
+        """Current user method"""
         return None
