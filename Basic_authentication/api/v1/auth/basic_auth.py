@@ -2,6 +2,9 @@
 """Basic Authentication"""
 
 from api.v1.auth.auth import Auth
+from base64 import b64decode, binascii
+from typing import TypeVar
+
 
 
 class BasicAuth(Auth):
@@ -31,8 +34,8 @@ class BasicAuth(Auth):
             return None
 
         try:
-            decoded_header = base64.b64decode(base64_authorization_header)
-        except base64.binascii.Error:
+            decoded_header = b64decode(base64_authorization_header)
+        except binascii.Error:
             return None
 
         return decoded_header.decode('utf-8')
