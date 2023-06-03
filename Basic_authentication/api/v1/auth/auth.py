@@ -27,11 +27,12 @@ class Auth:
             elif path == excluded_path:
                 return False
         return True
-        
 
     def authorization_header(sefl, request=None) -> str:
         """Authorization header method"""
-        return None
+        if request is None:
+            return None
+        return request.headers.get('Authorization', None)
 
     def current_user(self, request=None) -> TypeVar('User'):
         """Current user method"""
