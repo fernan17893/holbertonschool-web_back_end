@@ -3,8 +3,7 @@
 
 from api.v1.auth.auth import Auth
 from base64 import b64decode, binascii
-from typing import TypeVar
-
+from typing import TypeVar, List
 
 
 class BasicAuth(Auth):
@@ -39,3 +38,15 @@ class BasicAuth(Auth):
             return None
 
         return decoded_header.decode('utf-8')
+
+    def extract_user_credentials(self,
+                                 decoded_base64_authorization_header: str
+                                 ) -> (str, str):
+        """Extract user credentials"""
+        if decoded_base64_authorization_header is None:
+            return None, None
+        if not isinstance(decoded_base64_authorization_header, str):
+            return None, None
+        if ':' not in decoded_base64_authorization_header:
+            return None, None
+        return tuple(decoded_base64_authorization_header.split(':', 1))
