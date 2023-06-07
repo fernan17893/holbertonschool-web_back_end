@@ -4,6 +4,7 @@
 
 from flask import Flask, jsonify, request
 from auth import Auth
+import bcrypt
 
 
 AUTH = Auth()
@@ -27,6 +28,16 @@ def users() -> str:
         return jsonify({"email": email, "message": "user created"}), 200
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
+    
+
+def valid_login(email: str, password: str) -> bool:
+    """Check if login is valid"""
+    if bcrypt.checkpw(password.encode('utf-8'),
+        AUTH._db.find_user_by(
+        email=email).hashed_password):
+        return True
+    else:
+        return False
 
 
 if __name__ == "__main__":
