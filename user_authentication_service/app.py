@@ -2,7 +2,7 @@
 """Basic Flask APP"""
 
 
-from flask import Flask, abort, jsonify, request
+from flask import Flask, abort, jsonify, redirect, request
 from auth import Auth
 import bcrypt
 
@@ -42,6 +42,53 @@ def login() -> str:
         return response
     else:
         abort(401)
+
+
+@app.route('/sessions', methods=['DELETE'])
+def logout() -> str:
+    """Logout"""
+    session_id = request.cookies.get('session_id')
+    user = AUTH.get_user_from_session_id(session_id)
+    if user:
+        AUTH.destroy_session(user.id)
+        return redirect('/')
+    else:
+        abort(403)
+
+
+@app.route('/profile', methods=['GET'])
+def profile() -> str:
+    """Profile"""
+    session_id = request.cookies.get('session_id')
+    user = AUTH.get_user_from_session_id(session_id)
+    if user:
+        return jsonify({"email": user.email}), 200
+    else:
+        abort(403)
+
+
+@app.route('/reset_password', methods=['POST'])
+def get_reset_password_token() -> str:
+    """Reset password"""
+    email = request.form.get('email')
+    try:
+        reset_token = AUTH.get_reset_password_token(email)
+        return jsonify({"email": email, "reset_token": reset_token}), 200
+    except ValueError:
+        abort(403)
+
+
+@app.route('/reset_password', methods=['PUT'])
+def update_password() -> str:
+    """Update password"""
+    email = request.form.get('email')
+    reset_token = request.form.get('reset_token')
+    new_password = request.form.get('new_password')
+    try:
+        AUTH.update_password(reset_token, new_password)
+        return jsonify({"email": email, "message": "Password updated"}), 200
+    except ValueError:
+        abort(403)
 
 
 if __name__ == "__main__":
