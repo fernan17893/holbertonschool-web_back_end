@@ -2,7 +2,7 @@
 """Basic Flask APP"""
 
 
-from flask import Flask, jsonify, request
+from flask import Flask, abort, jsonify, request
 from auth import Auth
 import bcrypt
 
@@ -41,7 +41,7 @@ def login() -> str:
         response.set_cookie('session_id', session_id)
         return response
     else:
-        Flask.abort(401)
+        abort(401)
 
 
 if __name__ == "__main__":
