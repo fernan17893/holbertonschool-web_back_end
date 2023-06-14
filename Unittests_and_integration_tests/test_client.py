@@ -4,12 +4,12 @@
 import unittest
 from parameterized import parameterized
 from client import GithubOrgClient
-from unittest.mock import patch
+from unittest.mock import patch, PropertyMock
 import client
 from fixtures import TEST_PAYLOAD
 
 
-class TestIntegrationGithubOrgClient(unittest.TestCase):
+class TestGithubOrgClient(unittest.TestCase):
     """Github Org"""
 
     @parameterized.expand([
@@ -27,7 +27,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     def test_public_repos_url(self):
         """Test public repos url"""
         with patch('client.GithubOrgClient._public_repos_url',
-                   new_callable=PropertyType) as mock_public:
+                   new_callable=PropertyMock) as mock_public:
             mock_public.return_value = "www.yes.com"
             test_client = client.GithubOrgClient("test")
             self.assertEqual(test_client._public_repos_url, "www.yes.com")
