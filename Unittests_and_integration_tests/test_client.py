@@ -16,11 +16,11 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         ("google"),
         ("abc"),
     ])
-    def test_org(self, org):
+    def test_org(self, org, result):
         """Test org"""
         with patch('client.get_json') as mock_get:
             mock_get = {}
-            mock_get.return_value = {"payload": True}
-            test_class = GithubOrgClient(org)
-            self.assertEqual(test_class.org, mock_get.return_value)
-            mock_get.assert_called_once_with("https://api.github.com/orgs/" + org)
+            orgc = client
+            test_client = orgc.GithubOrgClient(org)
+            self.assertEqual(test_client.org, result)
+            mock_get.assert_called_once_with()
