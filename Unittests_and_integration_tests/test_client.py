@@ -23,3 +23,11 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
             test_client = client.GithubOrgClient(org)
             self.assertEqual(test_client.org, result)
             mock_get.assert_called_once_with()
+
+    def test_public_repos_url(self):
+        """Test public repos url"""
+        with patch('client.GithubOrgClient._public_repos_url',
+                   new_callable=PropertyType) as mock_public:
+            mock_public.return_value = "www.yes.com"
+            test_client = client.GithubOrgClient("test")
+            self.assertEqual(test_client._public_repos_url, "www.yes.com")
