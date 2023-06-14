@@ -29,7 +29,7 @@ class TestAccessNestedMap(unittest.TestCase):
 
 
 class TestGetJson(unittest.TestCase):
-    """"""
+    """Test get json class"""
 
     @patch('requests.get')
     def test_get_json(self, mock_get):
