@@ -13,14 +13,13 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     """Github Org"""
 
     @parameterized.expand([
-        ("google"),
-        ("abc"),
+        ("google", {}),
+        ("abc", {}),
     ])
     def test_org(self, org, result):
         """Test org"""
         with patch('client.get_json') as mock_get:
-            mock_get = {}
-            orgc = client
-            test_client = orgc.GithubOrgClient(org)
+            mock_get.return_value = {}
+            test_client = client.GithubOrgClient(org)
             self.assertEqual(test_client.org, result)
             mock_get.assert_called_once_with()
