@@ -49,7 +49,7 @@ def replay(method: Callable):
     for i, o in zip(inputs, outputs):
         print(f"{method.__qualname__}(*{i.decode('utf-8')}) -> {o.decode('utf-8')}")
 
-        
+
 class Cache():
     """Cache class"""
     def __init__(self) -> None:
