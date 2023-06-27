@@ -49,6 +49,7 @@ def replay(method: Callable):
     for i, o in zip(inputs, outputs):
         print(f"{method.__qualname__}(*{i.decode(
             'utf-8')}) -> {o.decode('utf-8')}")
+    return method(self)
 
 
 class Cache():
