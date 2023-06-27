@@ -31,8 +31,7 @@ class Cache():
 
     def get_str(self, key: str) -> str:
         """ Get method """
-        return self._redis.get(key).decode("utf-8")
+
 
     def get_int(self, key: str) -> int:
         """ Get method """
-        return int(self._redis.get(key).decode("utf-8"))
