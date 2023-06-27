@@ -37,6 +37,19 @@ def call_history(method: Callable) -> Callable:
     return history
 
 
+def replay(method: Callable):
+    """replay decorator"""
+    self = method.__self__
+    inputkey = method.__qualname__ + ":inputs"
+    outputkey = method.__qualname__ + ":outputs"
+    count = self.get_str(method.__qualname__)
+    print(f"{method.__qualname__} was called {count} times:")
+    inputs = self._redis.lrange(inputkey, 0, -1)
+    outputs = self._redis.lrange(outputkey, 0, -1)
+    for i, o in zip(inputs, outputs):
+        print(f"{method.__qualname__}(*{i.decode('utf-8')}) -> {o.decode('utf-8')}")
+
+        
 class Cache():
     """Cache class"""
     def __init__(self) -> None:
