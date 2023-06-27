@@ -26,12 +26,18 @@ class Cache():
                                                           int,
                                                           float]:
         """ Get method """
+        data = self._redis.get(key)
+
         if fn:
-            return fn(self._redis.get(key))
+            return fn(data)
+
+        if fn is None:
+            return data
 
     def get_str(self, key: str) -> str:
         """ Get method """
-
+        return self.get(key, lambda d: d.decode("utf-8"))
 
     def get_int(self, key: str) -> int:
         """ Get method """
+        return self.get(key, int)
