@@ -20,3 +20,19 @@ class Cache():
         randomKey = str(uuid.uuid4())
         self._redis.set(randomKey, data)
         return randomKey
+
+    def get(self, key: str, fn: Callable = None) -> Union[str,
+                                                          bytes,
+                                                          int,
+                                                          float]:
+        """ Get method """
+        if fn:
+            return fn(self._redis.get(key))
+
+    def get_str(self, key: str) -> str:
+        """ Get method """
+        return self._redis.get(key).decode("utf-8")
+
+    def get_int(self, key: str) -> int:
+        """ Get method """
+        return int(self._redis.get(key).decode("utf-8"))
