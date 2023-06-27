@@ -47,7 +47,7 @@ def replay(method: Callable):
     inputs = self._redis.lrange(inputkey, 0, -1)
     outputs = self._redis.lrange(outputkey, 0, -1)
     for i, o in zip(inputs, outputs):
-        print(f"{method.__qualname__}(*{i.decode('utf-8')}) -> {o.decode('utf-8')}")
+        print(f"{method.__qualname__}(*{i}) -> {o}")
 
 
 class Cache():
