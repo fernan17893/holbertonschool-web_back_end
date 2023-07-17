@@ -19,6 +19,8 @@ export default class Building {
 
   // eslint-disable-next-line class-methods-use-this
   evacuationWarningMessage() {
-    throw Error('Class extending Building must override evacuationWarningMessage');
+    if (this.constructor !== Building) {
+      throw Error('Class extending Building must override evacuationWarningMessage');
+    }
   }
 }
