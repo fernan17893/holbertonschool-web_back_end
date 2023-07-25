@@ -26,3 +26,4 @@ module.exports = async function countStudents(path) {
     });
   });
 };
+
