@@ -3,7 +3,8 @@ const http = require('http');
 const host = 'localhost';
 const port = 1245;
 
-const requestListner = function(request, response) {
+// eslint-disable-next-line func-names
+const requestListner = function (request, response) {
   response.statusCode = 200;
   response.setHeader('Content-Type', 'text/plain');
   response.end('Hello Holberton School!');
