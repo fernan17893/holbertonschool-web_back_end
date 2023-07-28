@@ -11,8 +11,7 @@ function countStudents(path) {
       const students = data.split('\n').map((student) => student.split(','));
       students.shift();
       const message = [];
-      
-      console.log('After!');
+
       message.push(`Number of students: ${students.length}`);
       students.forEach((student) => {
         if (!fields[student[3]]) fields[student[3]] = [];
