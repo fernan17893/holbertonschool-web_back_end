@@ -19,8 +19,6 @@ app.get('/students', (req, res) => {
     .catch((error) => res.end(error.message));
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+app.listen(port);
 
 module.exports = app;
