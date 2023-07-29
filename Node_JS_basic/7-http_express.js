@@ -12,6 +12,7 @@ app.get('/', (req, res) => {
 app.get('/students', (req, res) => {
   const urlPath = url.parse(req.url, true);
   console.log(req.url, urlPath);
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
   res.write('This is the list of our students\n');
   countStudents(process.argv[2])
     .then((data) => res.end(data))
