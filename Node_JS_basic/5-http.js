@@ -12,6 +12,7 @@ const app = http.createServer((req, res) => {
       res.end('Hello Holberton School!');
       break;
     case '/students':
+      res.writeHead(200, { 'Content-Type': 'text/plain' });
       res.write('This is the list of our students\n');
       countStudents(process.argv[2])
         .then((data) => res.end(data))
